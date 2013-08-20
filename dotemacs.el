@@ -11,6 +11,12 @@
 (require 'package)
 (add-to-list 'package-archives
 	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(package-initialize)
+
+;; elpy
+;; see "./lib/elpy/README.md" for full install instructions
+(elpy-enable)
+(elpy-use-ipython)
 
 ;; color-theme
 (add-to-load-path (abspath "./lib/color-theme"))
