@@ -7,6 +7,11 @@
 ;;  (let ((default-directory (file-name-directory load-file-name)))
     (file-truename path)))
 
+;; font
+(set-default-font 
+ "-unknown-Liberation Mono-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1")
+
+
 ;; package
 (require 'package)
 (add-to-list 'package-archives
@@ -25,9 +30,10 @@
   '(progn
      (add-to-list 'custom-theme-load-path 
 		  (abspath "./lib/emacs-color-theme-solarized"))
+     (add-to-list 'custom-theme-load-path 
+		  (abspath "./lib/zenburn-emacs"))
      (color-theme-initialize)
-     ;;(load-theme 'solarized-dark t)
-     (color-theme-hober)))
+     (load-theme 'zenburn)))
 
 ;; markdown-mode
 (add-to-load-path (abspath "./lib/markdown-mode"))
@@ -39,6 +45,16 @@
 
 ;; ido-mode
 (ido-mode)
+
+;; magnars modes
+;; multiple-cursors
+(add-to-load-path (abspath "./lib/multiple-cursors.el"))
+(require 'multiple-cursors)
+
+;; expand-region
+(add-to-load-path (abspath "./lib/expand-region.el"))
+(require 'expand-region)
+
 
 ;; auto-mode-alist
 ;; assign file types to specific modes
@@ -75,3 +91,26 @@
 
 (global-set-key (kbd "C-c #") 'comment-region)
 (global-set-key (kbd "C-c C-#") 'uncomment-region)
+
+;; multiple-cursors
+(global-set-key (kbd "M-n M-n") 'mc/edit-lines)
+(global-set-key (kbd "M-n C-n") 'mc/mark-next-like-this)
+(global-set-key (kbd "M-n C-p") 'mc/mark-previous-like-this)
+(global-set-key (kbd "M-n C-x h") 'mc/mark-all-like-this)
+(global-set-key (kbd "M-n q") 'mc/keyboard-quit)
+(global-set-key (kbd "M-n m n") 'mc/mark-next-lines)
+
+;; expand-region
+(global-set-key (kbd "C-@") 'er/expand-region)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
