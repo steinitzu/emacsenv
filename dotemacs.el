@@ -53,7 +53,7 @@
 (add-to-load-path (initabspath "./lib/smart-mode-line"))
 (require 'smart-mode-line)
 (if after-init-time (sml/setup)
-  (addohook 'after-init-hook 'sml/setup))
+  (add-hook 'after-init-hook 'sml/setup))
 
 ;; magnars modes
 ;; multiple-cursors
@@ -105,6 +105,16 @@
     (kill-buffer buffername)))
 (volatile-kill-buffer "*tempterminal*")
 
+;; some cool hooks
+
+;; auto make-directory when saving buffer in non-existant dir
+(add-hook 'before-save-hook 
+          (lambda () 
+            (when buffer-file-name 
+              (let ((dir (file-name-directory buffer-file-name)))
+                (when (and (not (file-exists-p dir))
+                           (make-directory dir t)))))))
+
 
 
 
@@ -129,6 +139,7 @@
 (global-set-key (kbd "<f8>") 'find-emacs-init-file)
 (global-set-key (kbd "<f9>") 'switch-to-scratch)
 (global-set-key (kbd "<f2>") 'visit-ansi-term)
+(global-set-key (kbd "<f6>") 'visual-line-mode)
 
 (global-set-key (kbd "M-s s") 'replace-string)
 (global-set-key (kbd "M-s r") 'replace-regexp)
@@ -143,6 +154,8 @@
 
 (global-set-key (kbd "C-c #") 'comment-region)
 (global-set-key (kbd "C-c C-#") 'uncomment-region)
+
+(global-set-key (kbd "M-g f d e") 'flymake-display-err-menu-for-current-line)
 
 ;; multiple-cursors
 (global-set-key (kbd "M-n M-n") 'mc/edit-lines)
