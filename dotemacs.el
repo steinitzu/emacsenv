@@ -49,6 +49,15 @@
 ;; ido-mode
 (ido-mode)
 
+;; yaml-mode
+(add-to-load-path (initabspath "./lib/yaml-mode"))
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+(add-hook 'yaml-mode-hook 
+	  '(lambda () 
+	     (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
 ;; midnight-mode
 (require 'midnight)
 (midnight-delay-set 'midnight-delay "4:30am")
