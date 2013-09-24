@@ -58,6 +58,11 @@
 	  '(lambda () 
 	     (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 
+;; magit-mode
+(defun magit-stage-all-also-untracked () 
+  (interactive)
+  (magit-stage-all t))
+
 ;; midnight-mode
 (require 'midnight)
 (midnight-delay-set 'midnight-delay "4:30am")
@@ -187,7 +192,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(backup-directory-alist (quote (("." . "~/emacs-meta/backups"))))
- '(clean-buffer-list-kill-buffer-names (quote ("*Help*" "*Apropos*" "*Man " "*Buffer List*" "*Compile-Log*" "*info*" "*vc*" "*vc-diff*" "*diff*" "^.+\\\\.py$" "*magit-.+*" "")))
+ '(clean-buffer-list-kill-buffer-names (quote ("*Help*" "*Apropos*" "*Man " "*Buffer List*" "*Compile-Log*" "*info*" "*vc*" "*vc-diff*" "*diff*")))
+ '(clean-buffer-list-kill-regexps (quote ("^.+\\.\\(\\(py\\)\\|\\(yaml\\)\\|\\(el\\)\\|\\(ini\\)\\|\\(html\\)\\|\\(js\\)\\)\\($\\|\\(<[0-9+]>$\\)\\)" "^*magit-.+*$")))
  '(custom-safe-themes (quote ("dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
