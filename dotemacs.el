@@ -7,6 +7,22 @@
 ;;  (let ((default-directory (file-name-directory load-file-name)))
     (file-truename path)))
 
+;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
+(defun rename-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn
+          (rename-file name new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil))))))
+
 ;; font
 (set-default-font 
  "-unknown-Liberation Mono-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1")
@@ -25,6 +41,13 @@
 ;; see "./lib/elpy/README.md" for full install instructions
 (elpy-enable)
 (elpy-use-ipython)
+
+(add-to-load-path (initabspath "./lib"))
+
+;; easy-convert (units)
+(add-to-load-path (initabspath "./lib/easy-convert"))
+(require 'easy-convert)
+(global-set-key (kbd "C-c u") (quote easy-convert-interactive))
 
 ;; color-theme
 (add-to-load-path (initabspath "./lib/color-theme"))
@@ -45,9 +68,27 @@
 
 ;; nxhtml-mode
 (load (initabspath "./lib/nxhtml/autostart.el"))
+(require 'jinja)
+
+(add-to-list 'auto-mode-alist '("\\.jinja2$" . nxhtml-mode))
+
+;; nxml
+;; html5-el
+(add-to-load-path (initabspath "./lib/html5-el"))
+(eval-after-load "rng-loc"
+  '(add-to-list 'rng-schema-locating-files "~/code/html5-el/schemas.xml"))
+
+(require 'whattf-dt)
+
+;; (add-to-list 'auto-mode-alist
+;; 	     (cons (concat "\\." (regexp-opt '("xml" "html" "htm") t) "\\'")
+;; 		   'nxml-mode))
 
 ;; ido-mode
 (ido-mode)
+
+;; php-mode
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 
 ;; yaml-mode
 (add-to-load-path (initabspath "./lib/yaml-mode"))
@@ -194,7 +235,8 @@
  '(backup-directory-alist (quote (("." . "~/emacs-meta/backups"))))
  '(clean-buffer-list-kill-buffer-names (quote ("*Help*" "*Apropos*" "*Man " "*Buffer List*" "*Compile-Log*" "*info*" "*vc*" "*vc-diff*" "*diff*")))
  '(clean-buffer-list-kill-regexps (quote ("^.+\\.\\(\\(py\\)\\|\\(yaml\\)\\|\\(el\\)\\|\\(ini\\)\\|\\(html\\)\\|\\(js\\)\\)\\($\\|\\(<[0-9+]>$\\)\\)" "^*magit-.+*$")))
- '(custom-safe-themes (quote ("dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))))
+ '(custom-safe-themes (quote ("dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(nxml-slash-auto-complete-flag t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
