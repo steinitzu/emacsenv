@@ -44,6 +44,14 @@
 
 (add-to-load-path (initabspath "./lib"))
 
+;; python
+(defun py-occur-doc ()
+  "show occur of classes, function defs, docstrings n such. (a bit broken)"
+  (interactive)
+  (setq spattern "\\(^def .+\\)\\|\\( +def .+\\)\\|\\(^class .+\\)\\|\\(\"\"\".+\"\"\"\\)\\|\\(^[_A-Z].+=\\)")
+  (setq list-matching-lines-face nil)
+  (occur spattern))
+
 ;; easy-convert (units)
 (add-to-load-path (initabspath "./lib/easy-convert"))
 (require 'easy-convert)
@@ -90,6 +98,20 @@
 ;; php-mode
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 
+(defun php-insert-open-tag () 
+(interactive)
+(insert "<?php"))
+
+(defun php-insert-close-tag () 
+(interactive)
+(insert "?>"))
+(add-hook 'php-mode-hook 
+	  '(lambda () 
+	     (define-key php-mode-map "\M-o" 'php-insert-open-tag)))
+(add-hook 'php-mode-hook 
+	  '(lambda () 
+	     (define-key php-mode-map "\M-p" 'php-insert-close-tag)))
+
 ;; yaml-mode
 (add-to-load-path (initabspath "./lib/yaml-mode"))
 (require 'yaml-mode)
@@ -98,6 +120,10 @@
 (add-hook 'yaml-mode-hook 
 	  '(lambda () 
 	     (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
+;; chuck-mode
+(add-to-load-path (initabspath "./lib/chuck-mode"))
+(require 'chuck-mode)
 
 ;; magit-mode
 (defun magit-stage-all-also-untracked () 
@@ -236,6 +262,7 @@
  '(clean-buffer-list-kill-buffer-names (quote ("*Help*" "*Apropos*" "*Man " "*Buffer List*" "*Compile-Log*" "*info*" "*vc*" "*vc-diff*" "*diff*")))
  '(clean-buffer-list-kill-regexps (quote ("^.+\\.\\(\\(py\\)\\|\\(yaml\\)\\|\\(el\\)\\|\\(ini\\)\\|\\(html\\)\\|\\(js\\)\\)\\($\\|\\(<[0-9+]>$\\)\\)" "^*magit-.+*$")))
  '(custom-safe-themes (quote ("dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(elpy-rpc-backend "rope")
  '(nxml-slash-auto-complete-flag t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
