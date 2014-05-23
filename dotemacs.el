@@ -35,12 +35,15 @@
 (require 'package)
 (add-to-list 'package-archives
 	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives 
+	     '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (package-initialize)
 
 ;; elpy
 ;; see "./lib/elpy/README.md" for full install instructions
 (elpy-enable)
-(elpy-use-ipython)
+;; (elpy-use-ipython)
+
 
 (add-to-load-path (initabspath "./lib"))
 
@@ -57,17 +60,7 @@
 (require 'easy-convert)
 (global-set-key (kbd "C-c u") (quote easy-convert-interactive))
 
-;; color-theme
-(add-to-load-path (initabspath "./lib/color-theme"))
-(require 'color-theme)
-(eval-after-load "color-theme" 
-  '(progn
-     (add-to-list 'custom-theme-load-path 
-		  (initabspath "./lib/emacs-color-theme-solarized"))
-     (add-to-list 'custom-theme-load-path 
-		  (initabspath "./lib/zenburn-emacs"))
-     (color-theme-initialize)
-     (load-theme 'zenburn)))
+
 
 ;; markdown-mode
 (add-to-load-path (initabspath "./lib/markdown-mode"))
@@ -220,6 +213,14 @@
   (interactive)
   (switch-to-buffer "*scratch*"))
 
+(defun select-next-window ()
+  (interactive)
+  (select-window (next-window)))
+
+(defun select-previous-window ()
+  (interactive)
+  (select-window (previous-window)))
+
 ;; global-key-bindings  
 (global-set-key (kbd "<f8>") 'find-emacs-init-file)
 (global-set-key (kbd "<f9>") 'switch-to-scratch)
@@ -242,6 +243,9 @@
 
 (global-set-key (kbd "M-g f d e") 'flymake-display-err-menu-for-current-line)
 
+(global-set-key (kbd "M-]") 'select-next-window)
+(global-set-key (kbd "M-[") 'select-previous-window)
+
 ;; multiple-cursors
 (global-set-key (kbd "M-n M-n") 'mc/edit-lines)
 (global-set-key (kbd "M-n C-n") 'mc/mark-next-like-this)
@@ -263,6 +267,8 @@
  '(clean-buffer-list-kill-regexps (quote ("^.+\\.\\(\\(py\\)\\|\\(yaml\\)\\|\\(el\\)\\|\\(ini\\)\\|\\(html\\)\\|\\(js\\)\\)\\($\\|\\(<[0-9+]>$\\)\\)" "^*magit-.+*$")))
  '(custom-safe-themes (quote ("dd4db38519d2ad7eb9e2f30bc03fba61a7af49a185edfd44e020aa5345e3dca7" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(elpy-rpc-backend "rope")
+ '(elpy-rpc-python-command "/usr/bin/python")
+ '(inhibit-startup-screen t)
  '(nxml-slash-auto-complete-flag t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -270,3 +276,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; color-theme
+(add-to-load-path (initabspath "./lib/color-theme"))
+(require 'color-theme)
+(eval-after-load "color-theme" 
+  '(progn
+     (add-to-list 'custom-theme-load-path 
+		  (initabspath "./lib/emacs-color-theme-solarized"))
+     (add-to-list 'custom-theme-load-path 
+		  (initabspath "./lib/zenburn-emacs"))
+     (color-theme-initialize)
+     (load-theme 'zenburn)))
+
+
+(server-start)

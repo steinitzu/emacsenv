@@ -1,4 +1,4 @@
-(define-package "elpy" "1.2.1"
+(define-package "elpy" "1.4.0"
                 "Emacs Python Development Environment"
                 '((auto-complete "1.4")
                   (find-file-in-project "3.2")
@@ -7,6 +7,6 @@
                   (idomenu "0.1")
                   (iedit "0.97")
                   (nose "0.1.1")
-                  (virtualenv "1.2")
+                  (pyvenv "1.0")
                   (yasnippet "0.8.0"))
                 )

@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (elpy-mode elpy-disable elpy-enable) "elpy" "elpy.el"
-;;;;;;  (21129 2405))
+;;;;;;  (21374 29944 429151 965000))
 ;;; Generated autoloads from elpy.el
 
 (autoload 'elpy-enable "elpy" "\
@@ -26,7 +26,7 @@ Disable Elpy in all future Python buffers.
 Minor mode in Python buffers for the Emacs Lisp Python Environment.
 
 This mode fully supports virtualenvs. Once you switch a
-virtualenv using \\[virtualenv-workon], you can use
+virtualenv using \\[pyvenv-workon], you can use
 \\[elpy-rpc-restart] to make the elpy Python process use your
 virtualenv.
 
@@ -39,8 +39,8 @@ more structured list.
 
 ;;;***
 
-;;;### (autoloads nil nil ("elpy-pkg.el" "elpy-refactor.el") (21129
-;;;;;;  2405 579907))
+;;;### (autoloads nil nil ("elpy-pkg.el" "elpy-refactor.el") (21374
+;;;;;;  29944 445460 470000))
 
 ;;;***
 
