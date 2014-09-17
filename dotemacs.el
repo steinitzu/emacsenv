@@ -37,6 +37,8 @@
 	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives 
 	     '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+ (add-to-list 'package-archives 
+	      '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
 ;; elpy
@@ -142,6 +144,9 @@
 (add-to-load-path (initabspath "./lib/expand-region.el"))
 (require 'expand-region)
 
+;; supercollider (sclang-extensions)
+(require 'sclang)
+(add-hook 'sclang-mode-hook 'sclang-extensions-mode)
 ;; term
 
 (add-hook 'term-mode-hook 

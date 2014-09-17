@@ -1,0 +1,3 @@
+#name : ... = PocketDial.new
+# --
+${1:d} = PocketDial("usb");
